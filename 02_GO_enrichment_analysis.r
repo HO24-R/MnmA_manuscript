@@ -5,7 +5,7 @@
 # Performs separate GO enrichment analyses for upregulated and downregulated genes
 
 #
-# Note:
+# Note: The list of genes here have been curated based on log2FC of <= -1.50 and >= 1.50; padj = 0.05
 # No additional differential-expression cutoffs are applied in this script. All genes present in the input files are used
 # after validation against org.EcK12.eg.db.
 
