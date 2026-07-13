@@ -1,5 +1,4 @@
-# Script 01: DESeq2 analysis for WT treated vs WT untreated
-# Project: MnmA tRNA modification manuscript
+# Script 01: DESeq2 analysis for Treatment_group_1_vs_Treatment_group_2
 #
 # Purpose:
 #   1. Build a gene count matrix from STAR ReadsPerGene.out.tab files
@@ -12,8 +11,8 @@
 #   - data/annotation/Annot.gff3
 #
 # Outputs:
-#   - results/WT_treated_vs_WT_untreated_DE.csv
-#   - results/WT_treated_vs_WT_untreated_DE_with_Gene_Names.csv
+#   - results/Treatment_group_1_vs_Treatment_group_2_DE.csv
+#   - results/Treatment_group_1_vs_Treatment_group_2_DE_with_Gene_Names.csv
 #
 # Author: Humphrey Omeoga
 # ============================================================
@@ -78,8 +77,8 @@ rownames(counts) <- counts.files[[1]]$V1
 # Make sure file.list is in the correct order.
 # -----------------------------
 condition <- c(
-  rep("WT_Treated", 4),
-  rep("WT_Untreated", 4)
+  rep("Treatment_group_1", 4),
+  rep("Treatment_group_2", 4)
 )
 
 if (length(condition) != ncol(counts)) {
@@ -107,7 +106,7 @@ dds <- DESeq(dds)
 
 res <- results(
   dds,
-  contrast = c("condition", "WT_Treated", "WT_Untreated")
+  contrast = c("condition", "Treatment_group_1", "Treatment_group_2")
 )
 
 res_ordered <- res[order(res$padj), ]
@@ -121,7 +120,7 @@ res_df$genes <- rownames(res_df)
 
 write.csv(
   res_df,
-  file = file.path(outdir, "WT_treated_vs_WT_untreated_DE.csv"),
+  file = file.path(outdir, "Treatment_group_1_vs_Treatment_group_2_DE.csv"),
   row.names = FALSE
 )
 
@@ -156,7 +155,7 @@ merged_data <- left_join(
 
 write.csv(
   merged_data,
-  file = file.path(outdir, "WT_treated_vs_WT_untreated_DE_with_Gene_Names.csv"),
+  file = file.path(outdir, "Treatment_group_1_vs_Treatment_group_2_DE_with_gene_names.csv"),
   row.names = FALSE
 )
 
